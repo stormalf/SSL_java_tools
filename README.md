@@ -26,6 +26,10 @@ To compile it :
 
         javac HttpsClient.java
 
+### usage
+
+Usage: java HttpsClient httpsUrl keystore keystorepass truststore truststorepass protocol proxyServerHost proxyServerPort
+
 ### examples
 
 java HttpsClient https://your_url:your_port your_keystore.jks yourpass your_truststore.jks yourpass
