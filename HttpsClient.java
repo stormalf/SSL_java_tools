@@ -30,11 +30,11 @@ public class HttpsClient {
             case 5:
                 System.setProperty("https.protocols", args[5]);	            
             case 4:
-			    System.setProperty("javax.net.ssl.trustStorePassword", args[4]);                
+                System.setProperty("javax.net.ssl.trustStorePassword", args[4]);                
             case 3:                
                 System.setProperty("javax.net.ssl.trustStore", args[3]);	                                            
             case 2:                                
-			    System.setProperty("javax.net.ssl.keyStorePassword", args[2]);	                
+                System.setProperty("javax.net.ssl.keyStorePassword", args[2]);	                
             case 1:                                                
                 System.setProperty("javax.net.ssl.keyStore", args[1]);	                
             case 0:                                                                            
