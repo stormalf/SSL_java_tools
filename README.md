@@ -137,3 +137,98 @@ java HttpsClient https://your_url:your_port your_keystore.jks yourpass your_trus
 ### Remarks
 
 I didn't test the proxy parameters (proxyHost, proxyPort).
+Depending the platform, sometimes the HttpsClient can fail with cast exception. In this case, you can try to run the program replacing :
+
+           url = new URL(this.httpsUrl);
+
+by:
+
+           url = new URL(null, this.httpsUrl,  new sun.net.www.protocol.https.Handler());
+
+## SSL tips
+
+A great command that can help to see the server SSL certificate and server TLS information is :
+
+        openssl s_client -connect localhost:12345 -showcerts
+
+        CONNECTED(00000003)
+        Can't use SSL_get_servername
+        depth=0 C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        verify error:num=18:self-signed certificate
+        verify return:1
+        depth=0 C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        verify return:1
+        ---
+        Certificate chain
+        0 s:C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        i:C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+        v:NotBefore: Jan  9 16:32:51 2020 GMT; NotAfter: Jan  9 16:32:51 2025 GMT
+        -----BEGIN CERTIFICATE-----
+        MIIDZDCCAkygAwIBAgIEXhdVszANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJG
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        DCCAkygAwIBAgIEXhdVszANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJGDVQQK
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        BAMMCmFmcy1zZXJ2ZXIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCy
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        BAMMCmFmcy1zZXJ2ZXIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCy
+        BfpY+cmugPpkZ5jLzrCTVROxguRHNp6QUxukZspcbY/EGSyGE/tgRGVahMGHGMlv
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        j17tU1shEVFCRuGI/IKr9vMgS5K3Hb5feev5msgGTQcNkwhVjwY+sJ3uBWy9Pot2
+        DLRHK2ONqO0=
+        -----END CERTIFICATE-----
+        ---
+        Server certificate
+        subject=C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        issuer=C = FR, ST = fr, L = city, O = organization, OU = organization_unit, CN = alternative_name
+        ---
+        No client certificate CA names sent
+        Peer signing digest: SHA256
+        Peer signature type: RSA-PSS
+        Server Temp Key: ECDH, prime256v1, 256 bits
+        ---
+        SSL handshake has read 1631 bytes and written 804 bytes
+        Verification error: self-signed certificate
+        ---
+        New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+        Server public key is 2048 bit
+        Secure Renegotiation IS NOT supported
+        Compression: NONE
+        Expansion: NONE
+        No ALPN negotiated
+        Early data was not sent
+        Verify return code: 18 (self-signed certificate)
+        ---
+        ---
+        Post-Handshake New Session Ticket arrived:
+        SSL-Session:
+        Protocol  : TLSv1.3
+        Cipher    : TLS_AES_256_GCM_SHA384
+        Session-ID: 77C04AD369802FAE2BF2A27E8B5ACD219D83DE9802FAE2BF2A27E8B5ACD219D83DE
+        Session-ID-ctx:
+        Resumption PSK: DAA9EAAB40B6FB1217E676E7BEBEBF18D4FF847FD6F26645C12EAAB40B6FB1217E676E7BEBEBF18D4FF847FD6F26645C12
+        PSK identity: None
+        PSK identity hint: None
+        SRP username: None
+        TLS session ticket lifetime hint: 86400 (seconds)
+        TLS session ticket:
+        0000 - 47 33 9f e9 94 92 f8 4e-96 e0 45 59 86 cf 79 aa   fz.....H..EY..y.
+        0010 - 33 9f e9 07 94 f6 46 ab-fc 87 39 ad 57 54 79 08   3..A..K...3.ZZ..
+
+        Start Time: 1657370325
+        Timeout   : 7200 (sec)
+        Verify return code: 18 (self-signed certificate)
+        Extended master secret: no
+        Max Early Data: 0
+        ---
+        read R BLOCK
+
+Great graphical tool to manage SSL certificates : keystore explorer.
