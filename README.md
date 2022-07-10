@@ -232,3 +232,11 @@ A great command that can help to see the server SSL certificate and server TLS i
         read R BLOCK
 
 Great graphical tool to manage SSL certificates : keystore explorer.
+
+## build.xml
+
+you can execute :
+
+        ant run
+
+It compiles the java sources and run them. For HttpsClient it executes with one argument only https://github.com. You can change and adapt to your needs.

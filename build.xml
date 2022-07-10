@@ -1,0 +1,28 @@
+<project>
+
+    <target name="compile">
+        <javac srcdir="." destdir="."/>
+    </target>
+
+    <target name="run" depends="compile">
+        <echo> Running HttpsClient classs ......... </echo>
+        <java classname="HttpsClient" fork="true"><arg value="https://github.com/"/></java>
+            <echo> Running tls class ......... </echo>
+        <java classname="tls" fork="true"/>
+        <!--java classname="com.example.foo.bar"
+    fork="true">
+    <env key="foo" value="bar"/>
+    <sysproperty key="sys1" value="fu"/>
+    <sysproperty key="sys2" value="barfu"/>
+    <jvmarg value="-Xlingc"/>
+    <arg value="-arg1"/>
+    <arg value="-arg2"/>
+    <arg value="bar"/>
+    <classpath>
+       <pathelement location="dist/test.jar"/>
+       <pathelement path="${java.class.path}"/>
+    </classpath>
+</java-->
+
+    </target>
+</project> 
